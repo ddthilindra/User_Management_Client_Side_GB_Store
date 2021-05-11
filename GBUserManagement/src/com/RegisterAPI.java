@@ -6,17 +6,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import model.User;
 
-@WebServlet("/LoginAPI")
-public class LoginAPI extends HttpServlet {
+@WebServlet("/RegisterAPI")
+public class RegisterAPI extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	User userObj = new User();
 
-	public LoginAPI() {
+	public RegisterAPI() {
 		super();
 
 	}
@@ -29,32 +28,15 @@ public class LoginAPI extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("API called");
-		HttpSession session = request.getSession();
-		String[] authStatus = userObj.loginUser(request.getParameter("txtUsername"),
+
+		System.out.println("API called"+request.getParameter("txtUsername")+ request.getParameter("txtEmail")+
+				request.getParameter("txtAddress")+ request.getParameter("txtPhone")+ request.getParameter("txtDOB")+
 				request.getParameter("txtPassword"));
-		String output = "authStatus";
-
-		if (authStatus[1].equals("success")) {
-			if (authStatus[0].equals("customer")) {
-				System.out.println("customer");
-				output = "{\"status\":\"success\", \"data\": \"cus\"}";
-				session.setAttribute("Id", authStatus[2]);
-				session.setAttribute("Username", authStatus[3]);
-				session.setAttribute("Email", authStatus[4]);
-			} else if (authStatus[0].equals("admin")) {
-				System.out.println("admin");
-				output = "{\"status\":\"success\", \"data\": \"adm\"}";
-				session.setAttribute("Id", authStatus[2]);
-				session.setAttribute("Username", authStatus[3]);
-				session.setAttribute("Email", authStatus[4]);
-			}
-
-		} else {
-			output = "{\"status\":\"error\", \"data\": \"" + authStatus + "\"}";
-		}
+		
+		String output = userObj.RegisterUser(request.getParameter("txtUsername"), request.getParameter("txtEmail"),
+				request.getParameter("txtAddress"), request.getParameter("txtPhone"), request.getParameter("txtDOB"),
+				request.getParameter("txtPassword"));
 		response.getWriter().write(output);
-
 	}
 
 	protected void doPut(HttpServletRequest request, HttpServletResponse response)

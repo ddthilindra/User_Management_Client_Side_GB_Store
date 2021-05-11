@@ -31,6 +31,8 @@ public class User {
 			if (con == null) {
 				return "Error while connecting to the database for inserting.";
 			}
+			
+			System.out.println("Method called"+uName+uEmail+uAddress+uPhone+uDob+uPass);
 
 			String query = "SELECT email FROM user WHERE email=?";
 			PreparedStatement preparedStmt = con.prepareStatement(query);
