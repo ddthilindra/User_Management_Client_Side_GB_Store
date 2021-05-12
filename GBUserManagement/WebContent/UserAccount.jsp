@@ -69,5 +69,11 @@
 		<input type="hidden" name="Id" id="Id" value="">
 		<input id="btnUpdate" name="btnUpdate" type="button" value="Update" class="btn btn-primary">
 	</form>
+	
+	<form >
+<input class="form-control" name="dltAcc" id="dltAcc" data-id='" <%out.print(session.getAttribute("Id"));%> "' value="">
+<input name="btnRemove" type="button" value="Remove" class="btnRemove btn btn-danger" data-id="<%out.print(session.getAttribute("Id"));%>">
+
+</form>
 </body>
 </html>

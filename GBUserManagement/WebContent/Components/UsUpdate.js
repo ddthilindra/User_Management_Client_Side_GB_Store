@@ -30,38 +30,60 @@ $(document).on("click", "#btnUpdateReq", function(event) {
 		});
 });
 
-$(document).on("click", "#btnUpdate", function(event) 
-		{  
-			$("#alertSuccess").text("");  
-			$("#alertSuccess").hide();  
-			$("#alertError").text("");  
-			$("#alertError").hide(); 
-			
-			
-			var status = validateLoginForm();  
-			if (status != true)  
-			{   
-				$("#alertError").text(status);   
-				$("#alertError").show();   
-				return;  
-			} 
-			
-			var type = ($("#Id").val() == "") ? "POST" : "PUT"; 
-			
-			$.ajax( 
-			{  
-				url : "UserUpdateAPI",  
-				type : type,  
-				data : $("#formUpdate").serialize(),  
-				dataType : "text",  
-				complete : function(response, status)  
-				{   
-					onItemSaveComplete(response.responseText, status);  
-					
-				} 
-			
-		}); 
+$(document).on("click", "#btnUpdate", function(event) {
+	$("#alertSuccess").text("");
+	$("#alertSuccess").hide();
+	$("#alertError").text("");
+	$("#alertError").hide();
+
+
+	var status = validateLoginForm();
+	if (status != true) {
+		$("#alertError").text(status);
+		$("#alertError").show();
+		return;
+	}
+
+	var type = ($("#Id").val() == "") ? "POST" : "PUT";
+
+	$.ajax(
+		{
+			url: "UserUpdateAPI",
+			type: type,
+			data: $("#formUpdate").serialize(),
+			dataType: "text",
+			complete: function(response, status) {
+				onItemSaveComplete(response.responseText, status);
+
+			}
+
+		});
 });
+
+$(document).on("click", ".btnRemove", function(event) {
+confirmAction();
+	
+});
+
+function confirmAction() {
+	let confirmAction = confirm("Are you sure to execute this action?");
+	if (confirmAction) {
+		alert("Action successfully executed");
+		$.ajax(
+		{
+			url: "UserUpdateAPI",
+			type: "DELETE",
+			data: "Id=" + $(this).data("id"),
+			dataType: "text",
+			complete: function(response, status) {
+				document.location = "Index.jsp";
+			}
+		});
+	} else {
+		alert("Action canceled");
+	}
+}
+
 
 function onLoginComplete(response, status) {
 	if (status == "success") {
@@ -74,7 +96,7 @@ function onLoginComplete(response, status) {
 			$('#Add').val(resultSet.add.trim());
 			$('#Phone').val(resultSet.phone.trim());
 			$('#Dob').val(resultSet.dob.trim());
-			
+
 		}
 		else if (resultSet.status.trim() == "error") {
 			$("#alertError").text(resultSet.data);

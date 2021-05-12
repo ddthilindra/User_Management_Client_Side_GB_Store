@@ -67,8 +67,12 @@ public class UserUpdateAPI extends HttpServlet {
 	}
 
 	
-	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	{
+		System.out.println("delete API called");
+		Map paras = getParasMap(request);
+		String output = userObj.deleteUser(paras.get("Id").toString());
+		response.getWriter().write(output);
 	}
 	
 	private static Map getParasMap(HttpServletRequest request) 
