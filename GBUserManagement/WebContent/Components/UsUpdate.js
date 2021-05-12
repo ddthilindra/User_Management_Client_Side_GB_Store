@@ -3,9 +3,10 @@ $(document).ready(function() {
 		$("#alertSuccess").hide();
 	}
 	$("#alertError").hide();
+	$("#alertSuccess").hide();
 });
 
-$(document).on("click", "#btnLogin", function(event) {
+$(document).on("click", "#btnUpdateReq", function(event) {
 	// Clear alerts---------------------
 	$("#alertError").text("");
 	$("#alertError").hide();
@@ -16,13 +17,12 @@ $(document).on("click", "#btnLogin", function(event) {
 		$("#alertError").show();
 		return;
 	}
-	
 	// If valid------------------------
 	$.ajax(
 		{
-			url: "LoginAPI",
+			url: "UserUpdateAPI",
 			type: "POST",
-			data: $("#formLogin").serialize(),
+			data: $("#formUpdateBtn").serialize(),
 			dataType: "text",
 			complete: function(response, status) {
 				onLoginComplete(response.responseText, status);
@@ -30,19 +30,51 @@ $(document).on("click", "#btnLogin", function(event) {
 		});
 });
 
+$(document).on("click", "#btnUpdate", function(event) 
+		{  
+			$("#alertSuccess").text("");  
+			$("#alertSuccess").hide();  
+			$("#alertError").text("");  
+			$("#alertError").hide(); 
+			
+			
+			var status = validateLoginForm();  
+			if (status != true)  
+			{   
+				$("#alertError").text(status);   
+				$("#alertError").show();   
+				return;  
+			} 
+			
+			var type = ($("#Id").val() == "") ? "POST" : "PUT"; 
+			
+			$.ajax( 
+			{  
+				url : "UserUpdateAPI",  
+				type : type,  
+				data : $("#formUpdate").serialize(),  
+				dataType : "text",  
+				complete : function(response, status)  
+				{   
+					onItemSaveComplete(response.responseText, status);  
+					
+				} 
+			
+		}); 
+});
+
 function onLoginComplete(response, status) {
 	if (status == "success") {
 		var resultSet = JSON.parse(response);
 		if (resultSet.status.trim() == "success") {
-			if (resultSet.data.trim() == "cus") {
-				// Redirect the valid user-----------------
-				document.location = "UserAccount.jsp";
-			}
-			else if (resultSet.data.trim() == "adm") {
-				// Redirect the valid user-----------------
-				document.location = "AdminAccount.jsp";
-			}
 
+			$('#Id').val(resultSet.id.trim());
+			$('#Name').val(resultSet.name.trim());
+			$('#Email').val(resultSet.email.trim());
+			$('#Add').val(resultSet.add.trim());
+			$('#Phone').val(resultSet.phone.trim());
+			$('#Dob').val(resultSet.dob.trim());
+			
 		}
 		else if (resultSet.status.trim() == "error") {
 			$("#alertError").text(resultSet.data);
@@ -62,25 +94,8 @@ function onLoginComplete(response, status) {
 
 function validateLoginForm() {
 	// USERNAME
-	if ($("#txtUsername").val().trim() == "") {
+	if ($("#txtEmail").val().trim() == "") {
 		return "Insert Username.";
-	}
-	// PASSWORD
-	if ($("#txtPassword").val().trim() == "") {
-		return "Insert Password.";
 	}
 	return true;
 }
-
-$(document).on("click", "#btnLogout", function(event) {
-	$.ajax(
-		{
-			url: "LoginAPI",
-			typ: "DELETE",
-			data: "",
-			dataType: "text",
-			complete: function(response, status) {
-				onLogoutComplete(response.responseText, status);
-			}
-		});
-});

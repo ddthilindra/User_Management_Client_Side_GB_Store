@@ -123,7 +123,7 @@ public class User {
 	public String updateUser(String id, String uName, String uEmail, String uAddress, String uPhone, String uDob,
 			String uPass) {
 		String output = "";
-		// System.out.println(ID + name + email + pass);
+		//System.out.println(id + uName + uEmail + uAddress+uPhone+uDob);
 		try {
 			Connection con = connect();
 			if (con == null) {
@@ -159,7 +159,7 @@ public class User {
 
 	// Delete user method (DELETE)
 	public String deleteUser(String id) {
-		System.out.println(id);
+		//System.out.println(id);
 		String output = "";
 		try {
 			Connection con = connect();
@@ -219,34 +219,30 @@ public class User {
 		return output;
 	}
 	
-	public String login(String email, String pwd) {
+	public String[] updateReq(String email) {
 
-		String output = null;
+		String[] output = null;
 
 		try {
 			Connection con = connect();
 			
 			if (con == null) {
-				output = "Error while connecting to the database for inserting.";
+				output[0] = "Error while connecting to the database for inserting.";
 			}
-			
+			//System.out.println("Update req Method called");
 			// create a prepared statement
-			String query = "select * from user where Email=? and Password=?";
+			String query = "select * from user where Email=?";
 			
 			PreparedStatement preparedStmt = con.prepareStatement(query);
 			// binding values
 			preparedStmt.setString(1, email);
-			preparedStmt.setString(2, pwd);
 			// execute the statement			
 			ResultSet rs = preparedStmt.executeQuery();
 			
-			System.out.println("Method called "+email+pwd);
+			
 			if (rs.next()) {
-				String ROLE = rs.getString("Role");
-				
-				System.out.println(ROLE);
-				System.out.println("success");
-				output = "success";
+				String[] strs = { "success",rs.getString("Id"), rs.getString("Name"), rs.getString("Email"), rs.getString("Address"), rs.getString("PhoneNo"), rs.getString("Dob") };
+				output = strs;				
 				
 			} else {
 				output = null;
@@ -254,7 +250,7 @@ public class User {
 			con.close();
 
 		} catch (Exception e) {
-			output = "Error while Login the item.";
+			output[0] = "Error while Login the item.";
 			System.err.println(e.getMessage());
 		}
 		return output;
@@ -268,7 +264,7 @@ public class User {
 
 			try {
 				Connection con = connect();
-				System.out.println("called1");
+				//System.out.println("method called");
 				if (con == null) {
 					output[0] = "Error while connecting to the database for inserting.";
 				}

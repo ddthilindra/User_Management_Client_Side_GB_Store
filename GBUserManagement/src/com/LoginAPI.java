@@ -28,7 +28,8 @@ public class LoginAPI extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+			throws ServletException, IOException 
+	{
 		System.out.println("API called");
 		HttpSession session = request.getSession();
 		String[] authStatus = userObj.loginUser(request.getParameter("txtUsername"),
