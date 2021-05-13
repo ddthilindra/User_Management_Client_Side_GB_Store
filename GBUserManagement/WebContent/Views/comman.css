@@ -1,0 +1,49 @@
+.bg-light {
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+.navbar-brand {
+	font-weight: bold;
+	font-family: monospace;
+	font-size: 28px;
+	color: #04204e !important;
+}
+
+.navbar-light .navbar-nav .nav-link {
+	font-weight: bold;
+	font-size: 14px;
+	text-transform: uppercase;
+}
+
+.navbar-light .navbar-nav .nav-item {
+	margin: 0 15px;
+}
+
+.navbut a{
+	color: #ffff;
+}
+
+.navbut {
+	background-color: #0375d5;
+	padding: 10px 20px;
+	text-decoration: none;
+	text-transform: uppercase;
+}
+
+.navbut:hover {
+	background-color: #555;
+}
+
+.navbut:active {
+	background-color: black;
+}
+
+.navbut:visited {
+	background-color: #ccc;
+}
+
+.form-inline a{
+	color: #ffff;
+	
+}

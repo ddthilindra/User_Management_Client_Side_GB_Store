@@ -1,0 +1,68 @@
+*{
+	padding:0;
+	margin:0;
+	box-sizing:border-box;
+}
+
+.sidebar{
+	display:flex;
+	flex-direction: column;
+	max-width:400px;
+	height:500px;
+}
+
+.sidebar a{
+	color:rgba(0,0,0,0.589);
+}
+
+.sidebar .user{
+	display:flex;
+	flex-direction: column;
+	font-size:28px;
+	align-items:center;
+	margin-top:25px;
+	margin-bottom:50px;
+	max-width:400px;
+}
+
+.cover_side{
+	margin:20px
+}
+
+.text{
+	padding-top:20px;
+}
+
+.cover_side .text a{
+	font-size:20px;
+	padding:15px 80px 15px 45px;
+	display:flex;
+}
+
+.cover_side .text .select{
+	background-color:rgba(219,226,226);
+}
+
+.form_side {
+	display:flex;
+	flex-direction: column;
+	max-width:1000px;
+}
+
+body{
+	background-color: rgba(219,226,226);
+	max-height:800px;
+}
+
+.row{
+	background-color:#ffff;
+}
+
+.box{
+	margin:100px;
+	padding-bottom:80px;
+}
+
+.contentf{
+	margin:50px;
+}
