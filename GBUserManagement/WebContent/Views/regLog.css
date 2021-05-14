@@ -1,0 +1,17 @@
+body{
+	background-color: rgba(219,226,226);
+	max-height:800px;
+}
+
+.maindiv{
+	background-color:#ffff;
+	border-radius:10px;
+}
+
+.box{
+	    margin: 30px 100px 30px 100px;
+}
+
+.formcntnt{
+	margin: 50px 90px 70px 90px;
+}

@@ -40,7 +40,7 @@ public class User {
 			ResultSet rs = preparedStmt.executeQuery();
 
 			if (rs.next()) {
-				return "This email address is already being used..!";
+				output= "{\"status\":\"used\", \"data\": \"" +  uName + "\"}"; 
 			} else {
 
 				// create a prepared statement
@@ -59,11 +59,11 @@ public class User {
 				// execute the statement
 				preparedStmt2.execute();
 				con.close();
-				output = "<h2>User has been Successfully Registered..!</h2>";
+				output = "{\"status\":\"success\", \"data\": \"" +  uName + "\"}"; 
 			}
 
 		} catch (Exception e) {
-			output = "Error while registering the user.";
+			output = "{\"status\":\"error\", \"data\": \"" +  uName + "\"}";
 			System.err.println(e.getMessage());
 		}
 		return output;
@@ -144,9 +144,9 @@ public class User {
 			int rs = preparedStmt.executeUpdate();
 
 			if (rs > 0) {
-				output = "<h2>User details has been updated successfully..!</h2>";
+				output = "{\"status\":\"success\", \"data\": \"" +  uName + "\"}"; 
 			} else {
-				output = "User details update Failed..!";
+				output = "{\"status\":\"error\", \"data\": \"" +  uName + "\"}"; 
 			}
 			con.close();
 
@@ -159,7 +159,7 @@ public class User {
 
 	// Delete user method (DELETE)
 	public String deleteUser(String id) {
-		//System.out.println(id);
+		System.out.println(id);
 		String output = "";
 		try {
 			Connection con = connect();
@@ -174,6 +174,7 @@ public class User {
 
 			if (rs > 0) {
 				output = "<h2>User has been deleted successfully</h2>";
+				System.out.println(output);
 			} else {
 				output = "User delete Failed";
 			}

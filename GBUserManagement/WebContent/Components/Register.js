@@ -1,5 +1,4 @@
-$(document).ready(function() 
-		{  
+$(document).ready(function() {  
 	if ($("#alertSuccess").text().trim() == "")  
     {   
 		$("#alertSuccess").hide();  
@@ -49,9 +48,16 @@ function onItemSaveComplete(response, status)
 	{   
 		var resultSet = JSON.parse(response); 
 
-		if (resultSet.status.trim() == "success")   
+		if (resultSet.status.trim() == "used")   
 		{    
-			$("#alertSuccess").text("Successfully saved.");    
+			$("#alertError").text("This email address is already being used..!");    
+			$("#alertError").show(); 
+
+			$("#divItemsGrid").html(resultSet.data);   
+		}
+		else if (resultSet.status.trim() == "success")   
+		{    
+			$("#alertSuccess").text("Successfully Registered .");    
 			$("#alertSuccess").show(); 
 
 			$("#divItemsGrid").html(resultSet.data);   

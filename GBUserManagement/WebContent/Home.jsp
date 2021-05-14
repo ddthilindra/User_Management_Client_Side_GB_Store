@@ -34,9 +34,9 @@
     </ul>
     <form class="form-inline my-2 my-lg-0">
     	<div class="navbut">
-      		<a  href="#">Login</a>
+      		<a  href="Login.jsp">Login</a>
       	</div>
-      <a class="navbut" href="#">Register</a>
+      <a class="navbut" href="Register.jsp">Register</a>
     </form>
   </div>
   </div>

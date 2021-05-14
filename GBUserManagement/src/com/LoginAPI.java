@@ -35,7 +35,6 @@ public class LoginAPI extends HttpServlet {
 		String[] authStatus = userObj.loginUser(request.getParameter("txtUsername"),
 				request.getParameter("txtPassword"));
 		String output = "authStatus";
-
 		if (authStatus[1].equals("success")) {
 			if (authStatus[0].equals("customer")) {
 				System.out.println("customer");
@@ -64,8 +63,11 @@ public class LoginAPI extends HttpServlet {
 	}
 
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
+			throws ServletException, IOException 
+	{
+		HttpSession session = request.getSession(); 
+		session.invalidate(); 
+		response.getWriter().write("success");
 	}
 
 }

@@ -30,59 +30,6 @@ $(document).on("click", "#btnUpdateReq", function(event) {
 		});
 });
 
-$(document).on("click", "#btnUpdate", function(event) {
-	$("#alertSuccess").text("");
-	$("#alertSuccess").hide();
-	$("#alertError").text("");
-	$("#alertError").hide();
-
-
-	var status = validateLoginForm();
-	if (status != true) {
-		$("#alertError").text(status);
-		$("#alertError").show();
-		return;
-	}
-
-	var type = ($("#Id").val() == "") ? "POST" : "PUT";
-
-	$.ajax(
-		{
-			url: "UserUpdateAPI",
-			type: type,
-			data: $("#formUpdate").serialize(),
-			dataType: "text",
-			complete: function(response, status) {
-				onItemSaveComplete(response.responseText, status);
-
-			}
-
-		});
-});
-
-$(document).on("click", ".btnRemove", function(event) {
-confirmAction();
-	
-});
-
-function confirmAction() {
-	let confirmAction = confirm("Are you sure to execute this action?");
-	if (confirmAction) {
-		alert("Action successfully executed");
-		$.ajax(
-		{
-			url: "UserUpdateAPI",
-			type: "DELETE",
-			data: "Id=" + $(this).data("id"),
-			dataType: "text",
-			complete: function(response, status) {
-				document.location = "Index.jsp";
-			}
-		});
-	} else {
-		alert("Action canceled");
-	}
-}
 
 
 function onLoginComplete(response, status) {
@@ -114,10 +61,115 @@ function onLoginComplete(response, status) {
 }
 
 
+$(document).on("click", "#btnUpdate", function(event) {
+	$("#alertSuccess").text("");
+	$("#alertSuccess").hide();
+	$("#alertError").text("");
+	$("#alertError").hide();
+
+
+	var status = validateLoginForm();
+	if (status != true) {
+		$("#alertError").text(status);
+		$("#alertError").show();
+		return;
+	}
+
+	var type = ($("#Id").val() == "") ? "POST" : "PUT";
+
+	$.ajax(
+		{
+			url: "UserUpdateAPI",
+			type: type,
+			data: $("#formUpdate").serialize(),
+			dataType: "text",
+			complete: function(response, status) {
+				onItemSaveComplete(response.responseText, status);
+
+			}
+
+		});
+});
+
+function onItemSaveComplete(response, status) {
+	if (status == "success") {
+		
+		var resultSet = JSON.parse(response);
+
+		if (resultSet.status.trim() == "success") {
+			$("#alertSuccess").text("User details has been updated successfully..!");
+			$("#alertSuccess").show();
+
+			$("#divItemsGrid").html(resultSet.data);
+		} else if (resultSet.status.trim() == "error") {
+			$("#alertError").text(resultSet.data);
+			$("#alertError").show();
+		}
+
+	} else if (status == "error") {
+		$("#alertError").text("Error while saving.");
+		$("#alertError").show();
+	} else {
+		$("#alertError").text("Unknown error while saving..");
+		$("#alertError").show();
+	}
+
+	$("#hidItemIDSave").val("");
+	$("#formItem")[0].reset();
+
+}
+
+$(document).on("click", ".btnRemove", function(event) {
+	$.ajax(
+		{
+			url: "UserUpdateAPI",
+			type: "DELETE",
+			data: "Id=" + $(this).data("id"),
+			dataType: "text",
+			complete: function(response, status) {
+				document.location = "Home.jsp";
+			}
+		});
+
+});
+
+function confirmAction() {
+	let confirmAction = confirm("Are you sure to execute this action?");
+	if (confirmAction) {
+		alert("Action successfully executed");
+
+	} else {
+		alert("Action canceled");
+	}
+}
+
+
+
 function validateLoginForm() {
 	// USERNAME
 	if ($("#txtEmail").val().trim() == "") {
 		return "Insert Username.";
 	}
 	return true;
+}
+
+$(document).on("click", "#btnLogout", function(event) {
+	$.ajax(
+		{
+			url: "LoginAPI",
+			type: "DELETE",
+			data: "",
+			dataType: "text",
+			complete: function(response, status) {
+				onLogoutComplete(response.responseText, status);
+			}
+		});
+});
+function onLogoutComplete(response, status) {
+	if (status == "success") {
+		if (response.trim() == "success") {
+			//Redirect to index------------------
+			document.location = "Home.jsp";
+		}
+	}
 }
