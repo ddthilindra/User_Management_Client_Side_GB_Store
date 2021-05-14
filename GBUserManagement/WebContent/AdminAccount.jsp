@@ -36,11 +36,17 @@
       
     </ul>
     <form class="form-inline my-2 my-lg-0">
-    	<div class="navbut">
-      		<a  href="#">Login</a>
-      	</div>
-      <a class="navbut" href="#">Register</a>
-    </form>
+					
+					<%
+					if (session.getAttribute("Username") == null) {
+						response.sendRedirect("Home.jsp");
+					} else {
+					%>
+					<a class="navbut" id="btnLogout" href="#">Logout</a>
+					<%
+					}
+					%>
+	</form>
   </div>
   </div>
 </nav>
@@ -61,7 +67,7 @@
 				<div class="profimg">
 					<img alt="User_profile" src="./img/admin-prof.png" height="220px" width="220px">
 				</div>
-					<span class="user"> <a href="#"><%out.print(session.getAttribute("Name"));%></a></span> 
+					<span class="user"> <a href="#"><%out.print(session.getAttribute("Username"));%></a></span> 
 					<center><b>Admin Dashboard</b></center>
 						<span class="text">
 							<div class="select">
@@ -98,14 +104,12 @@
 			<div class="form_side">
 			<h3>Update User Details</h3>
 			<br>
-				<div id="alertSuccess" class="alert alert-success"></div>
-				<div id="alertError" class="alert alert-danger"></div>
-
+				
 				<form id="formUpdate" name="formUpdate" class="frmupd">
 					<div class="form-group">
 						<label for="exampleInputEmail1">Name</label> <input type="text"
 							class="form-control" name="Name" id="Name"
-							aria-describedby="emailHelp" placeholder="Enter email" value="">
+							aria-describedby="emailHelp" placeholder="Enter name" value="">
 					</div>
 
 
@@ -118,31 +122,34 @@
 					<div class="form-group">
 						<label for="exampleInputEmail1">Address</label> <input type="text"
 							class="form-control" name="Add" id="Add"
-							aria-describedby="emailHelp" placeholder="Enter email" value="">
+							aria-describedby="emailHelp" placeholder="Enter address" value="">
 					</div>
 
 					<div class="form-group">
 						<label for="exampleInputEmail1">Address</label> <input type="text"
 							class="form-control" name="Phone" id="Phone"
-							aria-describedby="emailHelp" placeholder="Enter email" value="">
+							aria-describedby="emailHelp" placeholder="Enter phone" value="">
 					</div>
 
 					<div class="form-group">
-						<label for="exampleInputEmail1">Address</label> <input type="text"
+						<label for="exampleInputEmail1">Address</label> <input type="date"
 							class="form-control" name="Dob" id="Dob"
-							aria-describedby="emailHelp" placeholder="Enter email" value="">
+							aria-describedby="emailHelp" placeholder="Enter date of birth" value="">
 					</div>
 
 					<div class="form-group">
 						<label for="exampleInputPassword1">Password</label> <input
 							type="password" name="password" class="form-control"
-							id="password" placeholder="Password">
+							id="password" placeholder="Enter password">
 					</div>
 					<div class="ubdt-btn-center">
 					<input type="hidden" name="Id" id="Id" value=""> <input
 						id="btnUpdate" name="btnUpdate" type="button" value="Update"
 						class="btnUpdate">
 						</div>
+						<br>
+								<div id="alertSuccess" class="alert alert-success"></div>
+								<div id="alertError" class="alert alert-danger"></div>
 				</form>
 
 				
@@ -153,7 +160,7 @@
 
 
 
-</div>
+		</div>
 
 </div>
 

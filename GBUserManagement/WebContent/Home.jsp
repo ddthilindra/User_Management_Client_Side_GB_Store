@@ -10,6 +10,8 @@
 </head>
 <body>
 
+
+
 <!-----------------------------------------------------------Nve bar Start---------------------------------------------->
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -33,10 +35,23 @@
       
     </ul>
     <form class="form-inline my-2 my-lg-0">
-    	<div class="navbut">
+    <%
+if (session.getAttribute("Username") != null) 
+ { 
+	%>
+	<a class="navbut" id="btnLogout" href="#">Logout</a>
+	<%
+ }
+	else{
+	%>
+	<div class="navbut">
       		<a  href="Login.jsp">Login</a>
       	</div>
       <a class="navbut" href="Register.jsp">Register</a>
+ <%
+ }%>
+
+    	
     </form>
   </div>
   </div>

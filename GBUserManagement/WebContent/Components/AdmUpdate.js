@@ -11,7 +11,7 @@ $(document).on("click", "#btnUpdateReq", function(event) {
 	$("#alertError").text("");
 	$("#alertError").hide();
 	// Form validation-------------------
-	var status = validateLoginForm();
+	var status = validateUpdateForm();
 	if (status != true) {
 		$("#alertError").text(status);
 		$("#alertError").show();
@@ -25,43 +25,13 @@ $(document).on("click", "#btnUpdateReq", function(event) {
 			data: $("#formUpdateBtn").serialize(),
 			dataType: "text",
 			complete: function(response, status) {
-				onLoginComplete(response.responseText, status);
+				onUpdateComplete(response.responseText, status);
 			}
 		});
 });
 
-$(document).on("click", "#btnUpdate", function(event) {
-	$("#alertSuccess").text("");
-	$("#alertSuccess").hide();
-	$("#alertError").text("");
-	$("#alertError").hide();
 
-
-	var status = validateLoginForm();
-	if (status != true) {
-		$("#alertError").text(status);
-		$("#alertError").show();
-		return;
-	}
-
-	var type = ($("#Id").val() == "") ? "POST" : "PUT";
-
-	$.ajax(
-		{
-			url: "UserUpdateAPI",
-			type: type,
-			data: $("#formUpdate").serialize(),
-			dataType: "text",
-			complete: function(response, status) {
-				onItemSaveComplete(response.responseText, status);
-
-			}
-
-		});
-});
-
-
-function onLoginComplete(response, status) {
+function onUpdateComplete(response, status) {
 	if (status == "success") {
 		var resultSet = JSON.parse(response);
 		if (resultSet.status.trim() == "success") {
@@ -90,10 +60,106 @@ function onLoginComplete(response, status) {
 }
 
 
-function validateLoginForm() {
+$(document).on("click", "#btnUpdate", function(event) {
+	$("#alertSuccess").text("");
+	$("#alertSuccess").hide();
+	$("#alertError").text("");
+	$("#alertError").hide();
+
+
+	var status = validateLoginForm();
+	if (status != true) {
+		$("#alertError").text(status);
+		$("#alertError").show();
+		return;
+	}
+
+	var type = ($("#Id").val() == "") ? "POST" : "PUT";
+
+	$.ajax(
+		{
+			url: "UserUpdateAPI",
+			type: type,
+			data: $("#formUpdate").serialize(),
+			dataType: "text",
+			complete: function(response, status) {
+				onUserSaveComplete(response.responseText, status);
+
+			}
+
+		});
+});
+
+function onUserSaveComplete(response, status) {
+	if (status == "success") {
+		
+		var resultSet = JSON.parse(response);
+
+		if (resultSet.status.trim() == "success") {
+			$("#alertSuccess").text("User details has been updated successfully..!");
+			$("#alertSuccess").show();
+
+			$("#divItemsGrid").html(resultSet.data);
+		} else if (resultSet.status.trim() == "error") {
+			$("#alertError").text(resultSet.data);
+			$("#alertError").show();
+		}
+
+	} else if (status == "error") {
+		$("#alertError").text("Error while saving.");
+		$("#alertError").show();
+	} else {
+		$("#alertError").text("Unknown error while saving..");
+		$("#alertError").show();
+	}
+
+	$("#formUpdate")[0].reset();
+}
+
+
+function validateUpdateForm() {
 	// USERNAME
 	if ($("#txtEmail").val().trim() == "") {
-		return "Insert Username.";
+		return "Insert Email.";
+	}
+	if ($("#Name").val().trim() == "") {
+		return "Insert Name.";
+	}
+	if ($("#Email").val().trim() == "") {
+		return "Insert Email.";
+	}
+	if ($("#Add").val().trim() == "") {
+		return "Insert Address.";
+	}
+	if ($("#Phone").val().trim() == "") {
+		return "Insert Phone.";
+	}
+	if ($("#Dob").val().trim() == "") {
+		return "Insert Dob.";
+	}
+	if ($("#Password").val().trim() == "") {
+		return "Insert Password.";
 	}
 	return true;
+}
+
+$(document).on("click", "#btnLogout", function(event) {
+	$.ajax(
+		{
+			url: "LoginAPI",
+			type: "DELETE",
+			data: "",
+			dataType: "text",
+			complete: function(response, status) {
+				onLogoutComplete(response.responseText, status);
+			}
+		});
+});
+function onLogoutComplete(response, status) {
+	if (status == "success") {
+		if (response.trim() == "success") {
+			//Redirect to index------------------
+			document.location = "Home.jsp";
+		}
+	}
 }

@@ -95,7 +95,8 @@ public class User {
 				String DOB = rs.getString("Dob");
 				String ROLE = rs.getString("Role");
 				// Add into the html table
-				output += "<tr><td>" + ID + "</td>";
+				output += "<tr><td><input id='hidItemIDUpdate' name='hidItemIDUpdate' type='hidden' value='" + ID
+						+ "'>" + ID + "</td>";
 				output += "<td>" + NAME + "</td>";
 				output += "<td>" + EMAIL + "</td>";
 				output += "<td>" + ADDRESS + "</td>";
@@ -103,11 +104,10 @@ public class User {
 				output += "<td>" + DOB + "</td>";
 				output += "<td>" + ROLE + "</td>";
 				// buttons
-				output += "<td><input name='btnUpdate' type='button' value='Update' class='btn btn-secondary'></td>"
-						+ "<td><form method='post' action='Item.jsp'>"
-						+ "<input name='btnRemove' type='submit' value='Remove' class='btn btn-danger'>"
-						+ "<input name='itemID' type='hidden' value='" + ID + "'>" + "</form></td></tr>";
-
+				output += "<td><input name='btnUpdate' type='button' value='Update' "
+						+ "class='btnuUpdate btn btn-secondary' data-itemid='" + ID + "'></td>"
+						+ "<td><input name='btnRemove' type='button' value='Remove' "
+						+ "class='btnrRemove btn btn-danger' data-itemid='" + ID + "'></td></tr>";
 			}
 			con.close();
 			// Complete the html table

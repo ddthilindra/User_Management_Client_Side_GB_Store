@@ -81,7 +81,7 @@
 						class="btn btn-primary"> <br> 
 						 <br>
 						 <input type="hidden"
-						id="hidItemIDSave" name="hidItemIDSave" value=""><br>
+						id="hidUserIDSave" name="hidUserIDSave" value=""><br>
 					<div id="alertError" class="alert alert-danger"></div>
 				</form>
 				<div id="alertSuccess" class="alert alert-success"></div>

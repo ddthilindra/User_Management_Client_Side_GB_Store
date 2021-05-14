@@ -11,7 +11,7 @@ $(document).on("click", "#btnUpdateReq", function(event) {
 	$("#alertError").text("");
 	$("#alertError").hide();
 	// Form validation-------------------
-	var status = validateLoginForm();
+	var status = validateUpdateForm();
 	if (status != true) {
 		$("#alertError").text(status);
 		$("#alertError").show();
@@ -25,14 +25,13 @@ $(document).on("click", "#btnUpdateReq", function(event) {
 			data: $("#formUpdateBtn").serialize(),
 			dataType: "text",
 			complete: function(response, status) {
-				onLoginComplete(response.responseText, status);
+				onUpdateComplete(response.responseText, status);
 			}
 		});
 });
 
 
-
-function onLoginComplete(response, status) {
+function onUpdateComplete(response, status) {
 	if (status == "success") {
 		var resultSet = JSON.parse(response);
 		if (resultSet.status.trim() == "success") {
@@ -68,7 +67,7 @@ $(document).on("click", "#btnUpdate", function(event) {
 	$("#alertError").hide();
 
 
-	var status = validateLoginForm();
+	var status = validateUpdateForm();
 	if (status != true) {
 		$("#alertError").text(status);
 		$("#alertError").show();
@@ -84,14 +83,41 @@ $(document).on("click", "#btnUpdate", function(event) {
 			data: $("#formUpdate").serialize(),
 			dataType: "text",
 			complete: function(response, status) {
-				onItemSaveComplete(response.responseText, status);
+				onUserSaveComplete(response.responseText, status);
 
 			}
 
 		});
 });
 
-function onItemSaveComplete(response, status) {
+
+function validateUpdateForm() {
+	// USERNAME
+	if ($("#txtEmail").val().trim() == "") {
+		return "Insert Email.";
+	}
+	if ($("#Name").val().trim() == "") {
+		return "Insert Name.";
+	}
+	if ($("#Email").val().trim() == "") {
+		return "Insert Email.";
+	}
+	if ($("#Add").val().trim() == "") {
+		return "Insert Address.";
+	}
+	if ($("#Phone").val().trim() == "") {
+		return "Insert Phone.";
+	}
+	if ($("#Dob").val().trim() == "") {
+		return "Insert Dob.";
+	}
+	if ($("#Password").val().trim() == "") {
+		return "Insert Password.";
+	}
+	return true;
+}
+
+function onUserSaveComplete(response, status) {
 	if (status == "success") {
 		
 		var resultSet = JSON.parse(response);
@@ -114,8 +140,7 @@ function onItemSaveComplete(response, status) {
 		$("#alertError").show();
 	}
 
-	$("#hidItemIDSave").val("");
-	$("#formItem")[0].reset();
+	$("#formUpdate")[0].reset();
 
 }
 
@@ -145,13 +170,6 @@ function confirmAction() {
 
 
 
-function validateLoginForm() {
-	// USERNAME
-	if ($("#txtEmail").val().trim() == "") {
-		return "Insert Username.";
-	}
-	return true;
-}
 
 $(document).on("click", "#btnLogout", function(event) {
 	$.ajax(
@@ -173,3 +191,7 @@ function onLogoutComplete(response, status) {
 		}
 	}
 }
+
+$('#myModal').on('shown.bs.modal', function () {
+  $('#myInput').trigger('focus')
+})

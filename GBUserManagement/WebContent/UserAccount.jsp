@@ -12,6 +12,17 @@
 <script src="Components/UsUpdate.js"></script>
 </head>
 <body>
+
+<%
+					if (session.getAttribute("Username") == null) {
+						response.sendRedirect("Home.jsp");
+					} else {
+					%>
+					<a class="navbut" id="btnLogout" href="#">Logout</a>
+					<%
+					}
+					%>
+
 <!-----------------------------------------------------------Nve bar Start---------------------------------------------->
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -35,12 +46,8 @@
       
     </ul>
     <form class="form-inline my-2 my-lg-0">
-    	<div class="navbut">
-      		<a  href="#">Login</a>
-      	</div>
-      <a class="navbut" href="#">Register</a>
-      <a class="navbut" id="btnLogout" href="#">Logout</a>
-    </form>
+
+	</form>
   </div>
   </div>
 </nav>
@@ -99,7 +106,7 @@
 							<div class="form-group">
 								<label for="exampleInputEmail1">Name</label> <input type="text"
 									class="form-control" name="Name" id="Name"
-									aria-describedby="emailHelp" placeholder="Enter email" value="">
+									aria-describedby="emailHelp" placeholder="Enter name" value="">
 							</div>
 		
 		
@@ -112,25 +119,25 @@
 							<div class="form-group">
 								<label for="exampleInputEmail1">Address</label> <input type="text"
 									class="form-control" name="Add" id="Add"
-									aria-describedby="emailHelp" placeholder="Enter email" value="">
+									aria-describedby="emailHelp" placeholder="Enter address" value="">
 							</div>
 		
 							<div class="form-group">
-								<label for="exampleInputEmail1">Address</label> <input type="text"
+								<label for="exampleInputEmail1">Phone</label> <input type="text"
 									class="form-control" name="Phone" id="Phone"
-									aria-describedby="emailHelp" placeholder="Enter email" value="">
+									aria-describedby="emailHelp" placeholder="Enter phone" value="">
 							</div>
 		
 							<div class="form-group">
-								<label for="exampleInputEmail1">Address</label> <input type="text"
+								<label for="exampleInputEmail1">Address</label> <input type="date"
 									class="form-control" name="Dob" id="Dob"
-									aria-describedby="emailHelp" placeholder="Enter email" value="">
+									aria-describedby="emailHelp" placeholder="Enter date of birth" value="">
 							</div>
 		
 							<div class="form-group">
 								<label for="exampleInputPassword1">Password</label> <input
 									type="password" name="password" class="form-control"
-									id="password" placeholder="Password">
+									id="password" placeholder="Enter Password">
 							</div>
 							<div class="ubdt-btn-center">
 							<input type="hidden" name="Id" id="Id" value=""> <input
@@ -152,6 +159,8 @@
 							<input name="btnRemove" type="button" value="Delete Account"
 								class="btnRemove btn btn-danger"
 								data-id='<%out.print(session.getAttribute("Id"));%>'>
+								
+
 		
 						</form>
 						</div>

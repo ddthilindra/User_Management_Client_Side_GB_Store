@@ -61,11 +61,9 @@
 								<h1>Login</h1>
 								<form id="formLogin">
 									Email: <input id="txtUsername" name="txtUsername" type="text"
-										class="form-control form-control-sm" placeholder="Enter email"> 
-										
-										Password: <input
+										class="form-control form-control-sm"> Password: <input
 										id="txtPassword" name="txtPassword" type="password"
-										class="form-control form-control-sm" placeholder="Enter password"> <br> <input
+										class="form-control form-control-sm"> <br> <input
 										id="btnLogin" name="btnLogin" type="button" value="Login"
 										class="btn btn-primary"> <br> <br>
 									<div id="alertError" class="alert alert-danger"></div>

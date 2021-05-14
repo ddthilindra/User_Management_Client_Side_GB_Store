@@ -25,7 +25,7 @@ $(document).on("click", "#btnReg", function(event)
 				return;  
 			} 
 			
-			var type = ($("#hidItemIDSave").val() == "") ? "POST" : "PUT"; 
+			var type = ($("#hidUserIDSave").val() == "") ? "POST" : "PUT"; 
 			
 			$.ajax( 
 			{  
@@ -77,7 +77,7 @@ function onItemSaveComplete(response, status)
 			$("#alertError").show();  
 		} 
 
-		$("#hidItemIDSave").val("");  
+		$("#hidUserIDSave").val("");  
 		$("#formItem")[0].reset(); 
 		
 }
